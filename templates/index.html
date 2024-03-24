@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMAGE TO TEXT / AUDIO</title>
+    <link rel="stylesheet" href="/static/index_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="/static/preloader.css">
+    <link rel="stylesheet" href="/static/bgvideo.css">
+    <link rel="shortcut icon" type="image/jpg" href="/static/bootstrap_images/favicon.png" />
+</head>
+
+<body>
+    <header class="centered-text">
+        <p>Image To Text - Audio</p>
+    </header>
+    <div id="preloader"></div>
+    <br>
+    <div class="wrapper">
+        <header>UPLOAD YOUR FILE HERE</header>
+        <form method="POST" enctype="multipart/form-data" id="uploadForm" autocomplete="off">
+            <label id="image-and-icon" for="image-file">
+                <span class="select-image">Select Image</span>
+                <i class="fas fa-cloud-upload-alt"></i>
+                <input id="image-file" class="file-input" type="file" name="image" accept="image/*" required>
+
+            </label>
+            <span id="imageName">Browse File to Upload</span>
+            <!-- Add this section inside the form tag -->
+            <!-- <label for="conditionalKeyword" class="conditional-edit">Conditional Keyword :</label> -->
+            <input class="input" type="text" id="conditionalKeyword" name="conditional_keyword"
+                placeholder="Enter keyword">
+
+            <script>
+
+                let input = document.getElementById("image-file");
+                let imageName = document.getElementById("imageName")
+
+                input.addEventListener("change", () => {
+                    let inputImage = document.querySelector("input[type=file]").files[0];
+
+                    imageName.innerText = inputImage.name;
+                })
+            </script>
+
+            <!-- <p>Browse File to Upload</p> -->
+            <input id="btn1" type="submit" value="Convert">
+        </form>
+
+        <section class="progress-area"></section>
+        <section class="uploaded-area"></section>
+
+    </div><br>
+    <!-- <script src="/static/index_script.js"></script> -->
+    <div id="result">
+        <div class="conSec">
+            <h2>Conditional Image Caption :</h2><br>
+            <p id="conditionalDescription" class="cond-para-edit"></p>
+            <br>
+            <center><audio id="conditionalAudio" controls>
+                    <!-- <source src="audio\conditional_audio.mp3" type="audio/mp3"> -->
+                </audio></center>
+        </div><br><br><br>
+
+        <div class="unconSec">
+            <h2>Unconditional Image Caption :</h2><br>
+            <p id="unconditionalDescription" class="uncond-para-edit"></p>
+            <br>
+            <center><audio id="unconditionalAudio" controls>
+                    <!-- <source src="audio\unconditional_audio.mp3" type="audio/mpeg"> -->
+                </audio></center>
+        </div>
+    </div>
+    <br>
+    <br>
+    <script>
+        const form = document.querySelector('#uploadForm');
+        const conditionalDescriptionElement = document.querySelector('#conditionalDescription');
+        const unconditionalDescriptionElement = document.querySelector('#unconditionalDescription');
+        const conditionalAudioElement = document.getElementById('conditionalAudio');
+        const unconditionalAudioElement = document.getElementById('unconditionalAudio');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/index', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            conditionalDescriptionElement.textContent = data.conditional_description;
+            unconditionalDescriptionElement.textContent = data.unconditional_description;
+
+            // Set audio src if data is available
+            if (data.conditional_audio_path) {
+                conditionalAudioElement.src = data.conditional_audio_path;
+                conditionalAudioElement.load(); // Reset and load the new source
+                conditionalAudioElement.style.display = 'block';
+            } else {
+                conditionalAudioElement.style.display = 'none';
+            }
+
+            if (data.unconditional_audio_path) {
+                unconditionalAudioElement.src = data.unconditional_audio_path;
+                unconditionalAudioElement.load(); // Reset and load the new source
+                unconditionalAudioElement.style.display = 'block';
+            } else {
+                unconditionalAudioElement.style.display = 'none';
+            }
+        });
+    </script>
+
+    <script src="/static/preloader.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,309 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500&display=swap');
+
+:root {
+  --input-border: #e9f0ff;
+  --input-focus-h: 245;
+  --input-focus-s: 100%;
+  --input-focus-l: 42%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+}
+
+.centered-text {
+  background-color: #333;
+  font-size: large;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 10;
+  width: 100%;
+  z-index: 10;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* background: #ffffff; */
+  background: linear-gradient(315deg, rgb(247, 178, 242) 3%, rgb(147, 200, 249) 38%, rgb(149, 254, 247) 68%, rgb(252, 166, 166) 98%);
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  background-attachment: fixed;
+}
+
+::selection {
+  color: #fff;
+  background: #000942;
+}
+
+.wrapper {
+  background-color: #fffaf1;
+  /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)); */
+  width: 85%;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
+  margin-top: 4rem;
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.wrapper header {
+  color: black;
+  font-size: 27px;
+  font-weight: 600;
+  text-align: center;
+}
+.wrapper form {
+  gap: 25px;
+  height: 300px;
+  display: flex;
+  cursor: pointer;
+  margin: 30px 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 2px dashed #333;
+}
+form :where(i, p) {
+  color: black;
+}
+form i {
+  font-size: 50px;
+}
+form p {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+section .row {
+  margin-bottom: 10px;
+  background: #e9f0ff;
+  list-style: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+section .row i {
+  color: #000942;
+  font-size: 30px;
+}
+section .details span {
+  font-size: 14px;
+}
+.progress-area .row .content {
+  width: 100%;
+  margin-left: 15px;
+}
+.progress-area .details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  justify-content: space-between;
+}
+.progress-area .content .progress-bar {
+  height: 6px;
+  width: 100%;
+  margin-bottom: 4px;
+  background: #fff;
+  border-radius: 30px;
+}
+.content .progress-bar .progress {
+  height: 100%;
+  width: 0%;
+  background: #000942;
+  border-radius: inherit;
+}
+.uploaded-area {
+  max-height: 232px;
+  overflow-y: scroll;
+}
+.uploaded-area.onprogress {
+  max-height: 150px;
+}
+.uploaded-area::-webkit-scrollbar {
+  width: 0px;
+}
+.uploaded-area .row .content {
+  display: flex;
+  align-items: center;
+}
+.uploaded-area .row .details {
+  display: flex;
+  margin-left: 15px;
+  flex-direction: column;
+}
+.uploaded-area .row .details .size {
+  color: #404040;
+  font-size: 11px;
+}
+.uploaded-area i.fa-check {
+  font-size: 16px;
+}
+
+#btn1 {
+    background-color: black;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+#btn1:hover{
+    background-color: #272727;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    font-weight: bolder;
+    /* border: 2px solid #000942; */
+    cursor: pointer;
+    transition: 0.3s ease-out;
+    letter-spacing: 1px;
+}
+h2{
+  color: black;
+  font-size: 18px
+}
+h1{
+  color: black;
+  text-align: center;
+  font-size: 24px;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: 'Urbanist', serif;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+
+}
+
+
+.conSec{
+  border: 2px solid black;
+  width: 1030px;
+  height: 200px;
+  background-color: #fffaf1;
+  /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)); */
+  text-align: center;
+  border-radius: 30px;
+  padding-top: 30px;
+  justify-content: space-between;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.unconSec{
+  border: 2px solid black;
+  width: 1030px;
+  height: 200px;
+  background-color: #fffaf1;
+  /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)); */
+  text-align: center;
+  border-radius: 30px;
+  padding-top: 30px;
+  justify-content: space-between;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cond-para-edit{
+  color: black;
+}
+
+.uncond-para-edit{
+  color: black;
+}
+
+.file-input{
+  display: none;
+}
+
+#image-and-icon{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#image-and-icon:hover span{
+  font-weight: 900;
+}
+
+.select-image{
+  color: black;
+}
+
+.conditional-edit{
+  color: black;
+}
+
+#imageName{
+  color: black;
+  cursor: default;
+}
+
+.input {
+  font-size: 16px;
+  font-size: Max(16px, 1em);
+  font-family: inherit;
+  padding: 0.25em 0.5em;
+  background-color: #fff;
+  border: 2px solid black;
+  border-radius: 4px;
+  transition: 180ms box-shadow ease-in-out;
+}
+
+.input:focus {
+  border-color: hsl(
+    var(--input-focus-h),
+    var(--input-focus-s),
+    var(--input-focus-l)
+  );
+  box-shadow: 0 0 0 3px
+    hsla(
+      var(--input-focus-h),
+      var(--input-focus-s),
+      calc(var(--input-focus-l) + 40%),
+      0.8
+    );
+  outline: 3px solid transparent;
+}
+
+.input:not(textarea) {
+  line-height: 1;
+  height: 2.25rem;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 0%;
+  }
+  50% {
+      background-position: 100% 100%;
+  }
+  100% {
+      background-position: 0% 0%;
+  }
+}

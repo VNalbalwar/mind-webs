@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarization</title>
+    <link rel="stylesheet" href="/static/preloader.css">
+    <link rel="shortcut icon" type="image/jpg" href="/static/bootstrap_images/favicon.png" />
+</head>
+
+<body>
+    <div id="preloader"></div>
+    <h1>Text Summarization</h1>
+    <form action="/text_summarization" method="post">
+        <label for="input_text">Enter Text:</label><br>
+        <textarea id="input_text" name="input_text" rows="4" cols="50" required></textarea><br>
+        <input type="submit" value="Summarize">
+    </form>
+
+    {% if summary_result %}
+        <h2>Summary:</h2>
+        <p>{{ summary_result }}</p>
+    {% endif %}
+
+    <script src="/static/preloader.js"></script>
+</body>
+</html>

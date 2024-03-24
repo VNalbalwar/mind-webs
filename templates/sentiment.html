@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/sentiment.css">
+    <link rel="stylesheet" href="/static/preloader.css">
+    <link rel="shortcut icon" type="image/jpg" href="/static/bootstrap_images/favicon.png" />
+</head>
+
+<body>
+    <div id="preloader"></div>
+
+    <header>
+        <p class="centered-text">Sentiment Analysis Model</p>
+    </header>
+    <br><br>
+    <div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+     </div>
+
+
+    <div class="wrapper">
+        <h2>Enter a sentence and get its sentiments....</h2>
+        <form method="POST" id="sentimentForm">
+            <!-- <input type="text" name="user_input" id="userInput" required style="margin-bottom: 15px;" size="40" autocomplete="off"> -->
+            <textarea id="userInput" spellcheck="false" placeholder="Enter your text here..." required name="user_input"></textarea>
+            <br><br>
+            <input id="generateBtn" type="submit" value="Analyze Sentiment">
+        </form>
+    </div>
+    <br><br>
+    <div class="resultContainer">
+        <h2>Sentiment Analysis Results:</h2>
+        <p id="sentiment"></p>
+    </div>
+    <script>
+        const sentimentForm = document.querySelector('#sentimentForm');
+        const sentimentResultElement = document.querySelector('#sentiment');
+
+        sentimentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(sentimentForm);
+            const response = await fetch('/sentiment', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            sentimentResultElement.textContent = JSON.stringify(data.sentiment);
+        });
+    </script>
+
+<script>
+    const textarea = document.querySelector("textarea");
+    textarea.addEventListener("keyup", e => {
+        let scHeight = e.target.scrollHeight;
+        textarea.style.height = "63px";
+        textarea.style.height = `${scHeight}px`;
+    });  
+</script>
+
+
+    <script src="/static/preloader.js"></script>
+</body>
+
+</html>

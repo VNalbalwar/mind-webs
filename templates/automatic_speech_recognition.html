@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Speech Recognition</title>
+    <link rel="stylesheet" href="/static/automatic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    referrerpolicy="no-referrer" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/preloader.css">
+    <link rel="shortcut icon" type="image/jpg" href="/static/bootstrap_images/favicon.png" />
+</head>
+
+<body>
+    <div id="preloader"></div>
+    <header>
+        <p class="centered-text">Automatic Speech Recognition</p>
+    </header>
+    
+    <div class="container">
+        <h1>Speech Recognition Model</h1>
+        <div class="upload-box" onclick="document.getElementById('audio').click()">
+            <p id="file-name">Click here to upload an audio file</p>
+        </div>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="audio" id="audio" accept=".wav, .mp3" onchange="displayFileName()">
+            <button id="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="container-result">
+        <h2 id="resultText">Transcribed Text : </h2>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function displayFileName(){
+            let fileInput = document.getElementById('audio');
+            let fileName = fileInput.files[0].name;
+            document.getElementById("file-name").innerHTML = fileName;
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#uploadForm').submit(function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/automatic_speech_recognition',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        $('#resultText').html('<h2>Transcribed Text :</h2><p>' + response.transcribed_text + '</p>');
+                        if (response.error) {
+                            $('#resultText').append('<h2>Error:</h2><p>' + response.error + '</p>');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+<script src="/static/preloader.js"></script>
+
+</body>
+
+</html>

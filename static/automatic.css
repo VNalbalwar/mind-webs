@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lexend+Deca:wght@100;200;300;400;500;600;700&family=Montserrat:wght@400;700&family=Mulish:wght@300&family=Poppins:wght@300;400;600&family=Urbanist:wght@300;400;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Urbanist", sans-serif;
+  }
+  
+header {
+    background-color: #333;
+    font-size: large;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 10;
+    width: 100%;
+    z-index: -2;
+}
+
+main {
+    padding: 20;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 5rem;
+    /* background-color:rgb(255, 255, 255); */
+    background: linear-gradient(315deg, rgb(247, 178, 242) 3%, rgb(147, 200, 249) 38%, rgb(149, 254, 247) 68%, rgb(252, 166, 166) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+.container {
+    border: 2px dashed;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: #756de2;
+}
+
+.container-result{
+    border: 2px solid;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: #756de2;
+}
+
+.container-result p {
+    font-weight: normal;
+}
+
+h1 {
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.upload-box {
+    background-color: white;
+    border: 2px dashed;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upload-box:hover {
+    background-color: rgb(255, 249, 241);
+    border-color: #0056b3;
+    font-weight: bold;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#audio {
+    display: none;
+}
+
+#submit {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#submit:hover {
+    background-color: #2c2c2c;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
