@@ -12,10 +12,37 @@
     referrerpolicy="no-referrer" rel="stylesheet" />
     <link rel="stylesheet" href="/static/preloader.css">
     <link rel="shortcut icon" type="image/jpg" href="/static/bootstrap_images/favicon.png" />
+
+    <style>
+        /* Style for the loading spinner */
+        #loading-spinner {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 9999;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #loading-spinner img {
+            width: 24rem;
+        }
+    </style>
+
 </head>
 
 <body>
     <div id="preloader"></div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner">
+        <img src="/static/page_reloader.gif" alt="Loading..."> <!-- Replace with the path to your GIF -->
+    </div>
+
     <header>
         <p class="centered-text">Automatic Speech Recognition</p>
     </header>
@@ -47,6 +74,10 @@
         $(document).ready(function () {
             $('#uploadForm').submit(function (e) {
                 e.preventDefault();
+
+                // Show the loading spinner
+                $('#loading-spinner').css('display', 'flex');
+
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -60,6 +91,10 @@
                         if (response.error) {
                             $('#resultText').append('<h2>Error:</h2><p>' + response.error + '</p>');
                         }
+
+                        // Hide the loading spinner
+                        $('#loading-spinner').css('display', 'none');
+
                     },
                     error: function (xhr, status, error) {
                         console.error(error);

@@ -7,6 +7,7 @@ from transformers import BlipProcessor, BlipForConditionalGeneration
 from dotenv import find_dotenv, load_dotenv
 from gtts import gTTS
 from transformers import pipeline
+import language_tool_python
 
 
 app = Flask(__name__)
@@ -15,6 +16,18 @@ app.config['AUDIO_FOLDER'] = 'audio'
 
 # Create the audio folder if it doesn't exist
 os.makedirs(app.config['AUDIO_FOLDER'], exist_ok=True)
+
+def correct_grammar(text):
+    # Initialize the language tool
+    tool = language_tool_python.LanguageTool('en-US')
+
+    # Perform grammar check
+    matches = tool.check(text)
+
+    # Apply corrections
+    corrected_text = tool.correct(text)
+
+    return corrected_text
 
 def image2text(image_path, conditional_keyword):
     processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
@@ -25,16 +38,22 @@ def image2text(image_path, conditional_keyword):
     # Conditional image captioning
     text = f"{conditional_keyword}" if conditional_keyword else "The"
     inputs = processor(raw_image, text, return_tensors="pt")
-    max_new_tokens = 3000
-    out = model.generate(**inputs, max_new_tokens=max_new_tokens)
+    min_tokens = 30
+    # max_new_tokens = 3000
+    out = model.generate(**inputs, min_length=min_tokens, max_length=min_tokens+5)
     conditional_description = processor.decode(out[0], skip_special_tokens=True)
 
     # Unconditional image captioning
     inputs = processor(raw_image, return_tensors="pt")
-    out = model.generate(**inputs, max_new_tokens=max_new_tokens)
+    out = model.generate(**inputs, min_length=min_tokens, max_length=min_tokens+5)
     unconditional_description = processor.decode(out[0], skip_special_tokens=True)
 
-    return conditional_description.capitalize(), unconditional_description.capitalize()
+    # return conditional_description.capitalize(), unconditional_description.capitalize()
+    # Apply grammar correction
+    corrected_conditional_description = correct_grammar(conditional_description.capitalize())
+    corrected_unconditional_description = correct_grammar(unconditional_description.capitalize())
+
+    return corrected_conditional_description, corrected_unconditional_description
 
 
 def text2speech(text, filename):
@@ -54,7 +73,7 @@ def sentiment(text):
 
 def automatic_speech_recognition_function(audio_path):
     # Load the ASR pipeline
-    cls = pipeline("automatic-speech-recognition", model="distil-whisper/distil-large-v2")
+    cls = pipeline("automatic-speech-recognition", model="distil-whisper/distil-large-v3")
     # Perform ASR on the audio file
     result = cls(audio_path)
     # Extract the transcribed text
@@ -169,18 +188,6 @@ def automatic_speech_recognition():
 def serve_audio(filename):
     return send_from_directory(app.config['AUDIO_FOLDER'], filename)
 
-
-@app.route('/text_summarization', methods=['GET', 'POST'])
-def text_summarization_function():
-    summary_result = None
-
-    if request.method == 'POST':
-        input_text = request.form['input_text']
-        summary_result = text_summarization(input_text)
-
-    return render_template('text_summarization.html', summary_result=summary_result)
-
-
 @app.route('/text_to_audio', methods=['GET', 'POST'])
 def text_to_audio():
     if request.method == 'POST':
@@ -189,9 +196,6 @@ def text_to_audio():
         tts.save('output.mp3')
         return send_file('output.mp3', as_attachment=True)
     return render_template('text_to_audio.html')
-
-
-
 
 
 

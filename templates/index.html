@@ -10,12 +10,56 @@
     <link rel="stylesheet" href="/static/preloader.css">
     <link rel="stylesheet" href="/static/bgvideo.css">
     <link rel="shortcut icon" type="image/jpg" href="/static/bootstrap_images/favicon.png" />
+    <style>
+        /* Style for the loading spinner */
+        #loading-spinner {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 9999;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Centering the GIF */
+        #loading-spinner img {
+            width: 24rem;
+        }   
+
+        /* .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border: 0.25em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spinner-border .75s linear infinite;
+        } */
+
+        /* @keyframes spinner-border {
+            100% {
+                transform: rotate(360deg);
+            }
+        } */
+    </style>
 </head>
 
 <body>
     <header class="centered-text">
         <p>Image To Text - Audio</p>
     </header>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner">
+        <!-- <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div> -->
+        <img src="/static/page_reloader.gif" alt="Loading...">
+    </div>
+
     <div id="preloader"></div>
     <br>
     <div class="wrapper">
@@ -81,10 +125,14 @@
         const unconditionalDescriptionElement = document.querySelector('#unconditionalDescription');
         const conditionalAudioElement = document.getElementById('conditionalAudio');
         const unconditionalAudioElement = document.getElementById('unconditionalAudio');
-
+        const loadingSpinner = document.getElementById('loading-spinner'); // Make sure this line correctly selects the spinner
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
+
+            // Show the loading spinner
+            loadingSpinner.style.display = 'flex';
+            
             const response = await fetch('/index', {
                 method: 'POST',
                 body: formData
@@ -110,6 +158,10 @@
             } else {
                 unconditionalAudioElement.style.display = 'none';
             }
+
+            // Hide the loading spinner after getting the response
+            loadingSpinner.style.display = 'none';
+
         });
     </script>
 
