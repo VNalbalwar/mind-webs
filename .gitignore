@@ -50,3 +50,4 @@ coverage/
 *.js.map
 *.min.js
 *.d.ts
+.vercel
