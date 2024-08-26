@@ -1,0 +1,52 @@
+# Node.js
+/node_modules
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+.env
+*.sqlite3
+
+# Flask
+instance/
+.env
+
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+/static/
+media/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+
+# Ruby
+*.gem
+*.rbc
+.bundle/
+config/master.key
+log/
+tmp/
+db/*.sqlite3
+coverage/
+
+# JavaScript
+/dist/
+*.js.map
+*.min.js
+*.d.ts
